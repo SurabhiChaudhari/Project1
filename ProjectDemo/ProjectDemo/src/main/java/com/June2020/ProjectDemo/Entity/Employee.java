@@ -2,6 +2,7 @@ package com.June2020.ProjectDemo.Entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name="employees")
@@ -65,15 +66,34 @@ private Long salary;
     public void setSalary(Long salary) {
         this.salary = salary;
     }
-
+/*
     public Employee(Long id, String firstName, String lastName, @NotNull String emailAddress, @NotNull Long salary) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.salary = salary;
+    }*/
+
+    public Employee(Long id, String firstName, String lastName, @NotNull String emailAddress, @NotNull Long salary, Set<Department> department) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.salary = salary;
+        this.department = department;
     }
 
+    public Set<Department> getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Set<Department> department) {
+        this.department = department;
+    }
+
+    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL)
+    Set<Department> department;
     public Employee() {
     }
 }
